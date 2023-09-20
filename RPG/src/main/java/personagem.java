@@ -27,6 +27,14 @@ public class personagem {
         
     }
 
+    public int getDanoM() {
+        return danoM;
+    }
+
+    public void setDanoM(int danoM) {
+        this.danoM = danoM;
+    }
+
 
 
 
