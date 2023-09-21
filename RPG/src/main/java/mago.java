@@ -17,7 +17,7 @@ public abstract class  mago extends personagem implements interface_status_mago 
     public void status_mago(){
         super.descricao = "Mago -  O mago é uma classe das raças e cada raça possui um tipo espeficifico com atributos e status diferente";
         this.danoF = 20;
-        this.danoM = 45;
+        this.danoM = 50;
         this.resistenciaF = 15;
         this.resistenciaM = 35;
         this.vida = 3000;
