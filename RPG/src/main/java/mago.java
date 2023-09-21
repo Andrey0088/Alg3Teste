@@ -72,7 +72,7 @@ public abstract class  mago extends personagem implements interface_status_mago 
                 + "da guerra com toda certeza.  Mas apesar de ser um trunfo no PvP em massa, contra monstros o "
                 + "Dominator pode precisar de assistência para progredir de níveis. Além disso, essa classe de "
                 + "orc possui curses(venenos)(efeito em area) tirando defesa e  ataques de seus inimigos, sendo "
-                + "muito forte em PvP's 1x1 pois possuir muita resistencia"
+                + "muito forte em PvP's 1x1 pois possuir muita resistencia."
 );
         super.magia = " Steal Essence "
                 + "Baseado em vampirismo magico"
