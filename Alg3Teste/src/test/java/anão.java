@@ -7,6 +7,6 @@
  *
  * @author andre
  */
-public class gfgf {
+public class anão {
     
 }
