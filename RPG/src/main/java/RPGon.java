@@ -29,6 +29,8 @@ public class RPGon {
         int danoM=0;
         int raca=0;
         int sexo=0;
+        String  descricao ="";
+        String magia = "";
         
         // mensagens de inicio do jogo
         // descrição das raças
@@ -37,7 +39,7 @@ public class RPGon {
         
         boolean opcao= true;
         while (opcao){
-            personagem person = new personagem(vida, danoF, nome, resistenciaF, resistenciaM, danoM, raca, sexo);
+            personagem person = new personagem(vida, danoF, nome, resistenciaF, resistenciaM, danoM, raca, sexo, descricao, magia);
             int menu = Integer.parseInt(JOptionPane.showInputDialog(
                     "BEM-VINDO AO RPG\n"
                     +"Cadastro"
