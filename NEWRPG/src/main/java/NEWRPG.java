@@ -16,16 +16,17 @@ import javax.swing.JOptionPane;
  */
 public class NEWRPG {
     
-        public static void imprimirPersonagem(MAGO person){
+public static void imprimirPersonagem(ArrayList<MAGO> listaPersonagem) {
+    for (MAGO mago : listaPersonagem) {
         boolean impreme = true;
-            while (impreme){
-            
-                JOptionPane.showMessageDialog(null,"Status Mago" + person.getMagia() + person.getDescricao());
-                // fazer em array
-            }
-            
-            
+        while (impreme) {
+            JOptionPane.showMessageDialog(null, "Status Mago" + mago.getMagia() + mago.getDescricao());
+            // Aqui você pode adicionar lógica para decidir quando parar de imprimir
+            impreme = false; // Por exemplo, aqui estou setando impreme como false, o que interromperá o loop
+        }
     }
+}
+
   
 
     public static void main(String[] args) {
@@ -111,7 +112,7 @@ public class NEWRPG {
 
                 }
                 case 2->{
-                    imprimirPersonagem(person);
+                    imprimirPersonagem(listaPersonagem);
                     
                 }
                     
