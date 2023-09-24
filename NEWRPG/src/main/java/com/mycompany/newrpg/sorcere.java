@@ -18,12 +18,13 @@ public class sorcere extends MAGO implements StatusMago{
         this.poder = poder;
         this.StatusBaseMago();
     }
-     
+
     
+    @Override
         public void StatusBaseMago(){
             
          super.descricao = "Mago\n"
-                + "O mago é uma classe das raças e cada raça possui um tipo espeficifico com atributos e status diferente, porem\n"
+                + "O mago é uma classe das raças e cada raça possui um tipo espeficifico, com atributos e status diferente, porem\n"
                 + "todos tem a mesma base, mas a busca por poder torna cada um unico.\n"
                 + "o sexo nao define nada, logo as raças nao possui macho ou femea, possui apenas guerreiros e magos.\n"
                 + "Status bases da classe mago:\n";
@@ -36,6 +37,8 @@ public class sorcere extends MAGO implements StatusMago{
         
         
         }
+
+  
         
         
         public int HUMANOsorcere(){

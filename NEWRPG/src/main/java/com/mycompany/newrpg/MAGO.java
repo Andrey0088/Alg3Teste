@@ -32,7 +32,7 @@ public class MAGO {
         this.magia = magia;
     }
     
-
+   
     
     
     public int getVida() {
