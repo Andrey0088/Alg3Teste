@@ -9,55 +9,40 @@ package com.mycompany.newrpg;
  *
  * @author alanb
  */
-public class sorcere extends MAGO implements StatusMago{
-    private int HUMANOsorcere;
-    protected double poder;
-    public sorcere(int HUMANOsorcere, double poder, int vida, int danoF, String nome, int resistenciaF, int resistenciaM, int danoM, int raca, String descricao, String magia) {
-        super(vida, danoF, nome, resistenciaF, resistenciaM, danoM, raca, descricao, magia);
+public class sorcere extends personagem implements StatusMago{
+    protected int HUMANOsorcere;
+    private double poderSorce;
+    public sorcere(int HUMANOsorcere, double poderSorce, int vida, int danoF, String nome,
+            int resistenciaF, int resistenciaM, int danoM, int raca, String descricao, String magia, int vitoria, int derrota) {
+        super(vida, danoF, nome, resistenciaF, resistenciaM, danoM, raca, descricao, magia, vitoria, derrota);
         this.HUMANOsorcere = HUMANOsorcere;
-        this.poder = poder;
-        this.StatusBaseMago();
+        this.poderSorce = poderSorce;
+        
     }
 
     
     @Override
-        public void StatusBaseMago(){
+          public void StatusBaseMago(){
             
-         super.descricao = "Mago\n"
-                + "O mago é uma classe das raças e cada raça possui um tipo espeficifico, com atributos e status diferente, porem\n"
-                + "todos tem a mesma base, mas a busca por poder torna cada um unico.\n"
-                + "o sexo nao define nada, logo as raças nao possui macho ou femea, possui apenas guerreiros e magos.\n"
-                + "Status bases da classe mago:\n";
-        super.setDanoF(20);
-        this.setDanoM(50);
-        super.setResistenciaF(15);
-        super.setResistenciaM(35) ;
-        super.setVida(300);
-        this.poder = 20;
-        
-        
-        }
-
-  
-        
-        
-        public int HUMANOsorcere(){
-        super.setRaca(1);
-        super.setDescricao ( "SORCERE - MAGO DO FOGO"
-                + "\né muito perplexo, sendo conhecedor do poder dos elementais, \n"
-                + "\ne usando magias extremas com eles. Ele auxilia seus aliados colocando em chamas seus\n"
-                + "\ninimigos de uma longa distância usando Prominence. Inimigos do Sorceress são colocados \n"
-                + "\npara dormir com Sleeping Cloud. (* Ótimo veneno. Seu dano principal é baseado no fogo. Seu dano \n"
-                + "\né bom e sua velocidade de locomoção é ruim. *)\n"
-                + "\nPor ser mago possui baixa resistencia fisica, mas em locais adequados pode se sobressair sobre seus\n"
-                + "\noponentes\n"
-                    );
+        super.setDescricao ( "HUMANO - MAGO - SORCERE\n\n"
+                + "Sorcere's dominam o poder do fogo\n" +
+                            "O possui alto dano, pouca resistencia e alta velocidade de ataque\n" +
+"vantagens: local aberto\n" +
+"desvantagens: locais fechados\n");
         
         super.setMagia (" Prominence\n"
-                + "Baseado em fogo possui poder 40\n"
+                + "Baseado em fogo possui dano ardente\n"
                 + "Prominence é uma bola de fogo que ao se desperida se torna\n "
                 + "mortal foi se afinal ao longo do caminho causando muito dano ao inimigo\n");
-       // criar o nivel de poder
+        }
+
+
+
+  
+        public int HUMANOsorcere(){
+        super.setRaca(1);
+
+       // criar o nivel de poderSorce
        
        super.setDanoF(getDanoF()+20);
        super.setDanoM(getDanoM()+40);
@@ -65,11 +50,14 @@ public class sorcere extends MAGO implements StatusMago{
        super.setResistenciaM(getResistenciaM()+25);
        super.setNome(getNome());
        super.setVida(getVida()+150);
-       this.poder = getDanoM() * getResistenciaM();
-
+       
+       
+       
        return HUMANOsorcere = 1;
   
     }
+        
+
 
     @Override
     public int getDanoM() {
@@ -80,7 +68,15 @@ public class sorcere extends MAGO implements StatusMago{
     public void setDanoM(int danoM) {
         this.danoM = danoM;
     }
+    @Override
+    public int getVitoria() {
+        return vitoria;
+    }
 
+    @Override
+    public int getDerrota() {
+        return derrota;
+    }
     @Override
     public String getNome() {
         return nome;
@@ -91,13 +87,15 @@ public class sorcere extends MAGO implements StatusMago{
         this.nome = nome;
     }
 
-    public double getPoder() {
-        return poder;
+    public double getPoderSorce() {
+        return poderSorce;
     }
 
-    public void setPoder(double poder) {
-        this.poder = poder;
+    public void setPoderSorce(double poderSorce) {
+        this.poderSorce =  poderSorce;
     }
+
+ 
        
     
     

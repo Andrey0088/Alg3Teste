@@ -9,7 +9,7 @@ package com.mycompany.newrpg;
  *
  * @author alanb
  */
-public class MAGO {
+public class personagem {
     public int vida; // vida e cp
     public int danoF; // dano fisico e chance de critico
     public String nome; //nome do personagem
@@ -19,20 +19,45 @@ public class MAGO {
     public int raca; // raça do personagem
     public String descricao;
     public String magia;
-
-    public MAGO(int vida, int danoF, String nome, int resistenciaF, int resistenciaM, int danoM, int raca, String descricao, String magia) {
-        this.vida = vida;
-        this.danoF = danoF;
+    protected int vitoria;
+    protected int derrota;
+    public personagem(int vida, int danoF, String nome, int resistenciaF, int resistenciaM, int danoM, int raca, String descricao, String magia,int vitoria, int derrota) {
+        this.vida = 100;
+        this.danoF = 20;
         this.nome = nome;
-        this.resistenciaF = resistenciaF;
-        this.resistenciaM = resistenciaM;
-        this.danoM = danoM;
+        this.resistenciaF = 20;
+        this.resistenciaM = 20;
+        this.danoM = 20;
         this.raca = raca;
         this.descricao = descricao;
         this.magia = magia;
+        this.vitoria = vitoria;
+        this.derrota = derrota;
+    }
+
+    public int getVitoria() {
+        return vitoria;
+    }
+
+    public void setVitoria(int vitoria) {
+        this.vitoria = vitoria;
+    }
+
+    public int getDerrota() {
+        return derrota;
+    }
+
+    public void setDerrota(int derrota) {
+        this.derrota = derrota;
     }
     
-   
+   public void incrementarVitoria() {
+        vitoria++;
+    }
+
+    public void incrementarDerrota() {
+        derrota++;
+    }
     
     
     public int getVida() {

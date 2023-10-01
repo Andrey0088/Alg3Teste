@@ -1,8 +1,5 @@
 package com.mycompany.newrpg;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 
 
 
@@ -12,6 +9,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JOptionPane;
+import java.util.Random;
+
 
 /**
  *
@@ -21,53 +20,90 @@ public class NEWRPG {
     
 
 
-public static void imprimirPersonagem(ArrayList<MAGO> listaPersonagem) {
+public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
+    boolean continua = true;
+    while(continua){
+        
+    
     String[] opcoes = new String[listaPersonagem.size()];
     
     for (int i = 0; i < listaPersonagem.size(); i++) {
         opcoes[i] = listaPersonagem.get(i).getNome();
     }
+        
 
     int escolha = JOptionPane.showOptionDialog(null, "Escolha um personagem:", "Lista de Personagens", 
             JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcoes, opcoes[0]);
 
     if (escolha != JOptionPane.CLOSED_OPTION) {
-        MAGO mago = listaPersonagem.get(escolha);
+        personagem personagemAtual = listaPersonagem.get(escolha);
 
         JOptionPane.showMessageDialog(null,
-                "NOME DO CHAMPIAON:\n" + mago.getNome() +
-                        "\nDESCRIÇÕES DA CLASSE\n" +
-                        "MAGIA: \n" + mago.getMagia() +
-                        "\nDESCRIÇÃO: \n" + mago.getDescricao());
+                "NOME DO PERSONAGEM:\n" + personagemAtual.getNome() +
+                        "\nDESCRIÇÕES DA CLASSE\n"
+                                + "Dano Magico: " + personagemAtual.getDanoM()+"\n"
+                                        + "Resistencia Fisica: "+ personagemAtual.getResistenciaF()+"\n"
+                                                + "Resistencia Magica: "+ personagemAtual.getResistenciaM()+"\n"
+                                                        + "Vida: " + personagemAtual.getVida()+"\n"
+                                                                + "Numero vitoria: " + personagemAtual.getVitoria()+"\n"
+                                                                        + "Numero de derrotas: "+personagemAtual.getDerrota());
+        if(personagemAtual instanceof sorcere){
+            JOptionPane.showMessageDialog(null, "Poder Sorcere: "+((sorcere)personagemAtual).getPoderSorce()+"\n");
+            
+        }else if (personagemAtual instanceof spelholer){
+               JOptionPane.showMessageDialog(null, "Poder spelholer: "+((spelholer)personagemAtual).getpoderSpel());
 
-        int verStatus = JOptionPane.showConfirmDialog(null, "Ver status do personagem?", "Ver Status", JOptionPane.YES_NO_OPTION);
+        }else if (personagemAtual instanceof overlord){
+               JOptionPane.showMessageDialog(null, "Poder overlord: "+((overlord)personagemAtual).getpoderOver());
+            
+        }else if (personagemAtual instanceof sargittarius){
+               JOptionPane.showMessageDialog(null, "Poder sargittarius: "+((sargittarius)personagemAtual).getPoderSargittarius());
 
-        if (verStatus == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null,
-                    "NOME DO CHAMPIAON:\n" + mago.getNome() +
-                            "\nPODER DE LUTA: \n" + ((sorcere) mago).getPoder() +
-                            "\nDANO MAGICO: \n" + mago.getDanoM() +
-                            "\nDANO FISICO: \n" + mago.getDanoF() +
-                            "\nRESISTENCIA FISICA: \n" + mago.getResistenciaF() +
-                            "\nRESISTENCIA MAGICA: \n" + mago.getResistenciaM() +
-                            "\nVIDA DO PERSONAGEM: \n" + mago.getVida());
+        }else if (personagemAtual instanceof Titan){
+               JOptionPane.showMessageDialog(null, "Poder Titan: "+((Titan)personagemAtual).getPoderTitan());
+            
+        }else if (personagemAtual instanceof Duelist){
+               JOptionPane.showMessageDialog(null, "Poder Duelist: "+((Duelist)personagemAtual).getPoderDuelist());
+           
         }
+        int continuar = JOptionPane.showConfirmDialog(null, "Deseja continua"
+                + "visualizando os personagens?", "CONTINUAR", JOptionPane.YES_NO_OPTION);
+        if (continuar != JOptionPane.YES_NO_OPTION){
+            continua = false;
+        }
+    }else{
+        continua = false;
+    
     }
-   
 }
-    public static int escolherRacaClasseDescricao() {
-        String[] opcoes = {"HUMANO (fighter) - SAGITTARIUs", "HUMANO(mago) - SORCERE", "ORC(Fighter) - TITAN", "ORC(Mago) - OVERLORD", "DARK ELFO(Fighter) - DUELISTA", "DARK ELFO(Mago) - SPELHOOLER"};
-
-        return JOptionPane.showOptionDialog(null, "Escolha uma raça e classe:", "Escolha de Raça e Classe",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcoes, opcoes[0]);
- 
-
 }
 
+
+
+
+
+    // essa funçao dependa da de cima // TALVEZ NAO PRECISE MAIS
+    //// OK
     public static void ExplicaRaca(){
-        int escolhaRacaClasse = escolherRacaClasseDescricao();
-        switch (escolhaRacaClasse) {
-            case 0 -> {
+
+
+        boolean continua = true;
+        while (continua){
+            
+            String[] opcoes = {"HUMANO (fighter)-SAGITTARIUs",
+                "HUMANO(mago)-SORCERE", 
+                "ORC(Fighter)-TITAN",
+                "ORC(Mago)-OVERLORD",
+                "DARK ELFO(Fighter)-DUELISTA",
+                "DARK ELFO(Mago)-SPELHOOLER", "SAIR"};
+
+        String menu = (String) JOptionPane.showInputDialog(null,
+            "Escolha um item", "Opção",
+            JOptionPane.INFORMATION_MESSAGE, null,
+            opcoes, opcoes[0]);
+        
+            if(menu != null){
+                if(menu =="HUMANO (fighter)-SAGITTARIUs"){
                 // Exibir descrição para HUMANO (fighter) - SAGITTARIUs
                 JOptionPane.showMessageDialog(null,  
                 "HUMANO (fighter) - SAGITTARIUs\n\n"
@@ -76,117 +112,457 @@ public static void imprimirPersonagem(ArrayList<MAGO> listaPersonagem) {
                 // adicionar lore dos personagens
 
             }
-            case 1 -> {
+                        else if(menu =="HUMANO(mago)-SORCERE"){
                 // Exibir descrição para HUMANO(mago) - SORCERE
                 JOptionPane.showMessageDialog(null, "HUMANO(mago) - SORCERE\n\n"
                 + "Magos humanos sao dominadores de fogo, conhecidos como Sorcere's\n"
-                + "Possuiem baixa resistencia fisica\n\n");
+                + "Possuiem baixa resistencia fisica, mas compensa no dano\n\n");
             }
-            case 2 -> {
+             else if(menu =="ORC(Fighter)-TITAN") {
                 // Exibir descrição para ORC(Fighter) - TITAN
                  JOptionPane.showMessageDialog(null,
                 "ORC(Fighter) - TITAN \n\n"
                 + "ORCs são treinados desde pequeno na arte da luta\n"
-                + "E a classe mais forte fisicamente dos Orc's é o Titan(Voce nao quer lutar corpo-a-corpo com esse cara)\n\n");
+                + "é a classe mais forte fisicamente dos Orc's é o Titan(Voce nao quer lutar corpo-a-corpo com esse cara)\n\n");
             }
-            case 3 -> {
+             else if(menu == "ORC(Mago)-OVERLORD"){
                 // Exibir descrição para ORC(Mago) - OVERLORD
                   JOptionPane.showMessageDialog(null, "ORC(Mago) - OVERLORD\n\n"
                 + "Orc's se aperfeiçuaram na arte de roubar força vital(vida) e sao chamados de OVERLORD's\n"
                 + "São macumbeiros, entao envenena seus inimigos em area\n"
                 + "possui muita resistencia fisica e magica, mas são lentos\n\n");
-            }
-            case 4 -> {
+            }else if(menu =="DARK ELFO(Fighter)-DUELISTA"){
                 // Exibir descrição para DARK ELFO(Fighter) - DUELISTA
                 JOptionPane.showMessageDialog(null,
                 "DARK ELFO(Fighter) - DUELISTA\n\n"
                 + "Os elfos negros lutadores sao rapidos chamados de DUELIST's dominadores de duas espadas\n"
                 + "Usam o estilo corpo-a-corpo\n"
                 + "Possui pouco dano, mas eles sao experientes em dar ataques mortais no seus inimigos.\n\n");
-            }
-            case 5 -> {
+            }else if(menu =="DARK ELFO(Mago)-SPELHOOLER") {
                 // Exibir descrição para DARK ELFO(Mago) - SPELHOOLER
                 JOptionPane.showMessageDialog(null, "DARK ELFO(Mago) - SPELHOOLER\n\n"
                 + "Elfos negros que dominam a magia negra são chamados de SPELHOLLER\n"
                 + "Eles sao os magos que dominaram o vento graças ao conhecimento da deusa da floresta negra Merlin");
             }
-            default -> {
-                // Caso o usuário tenha fechado a janela ou escolhido algo inválido
-                JOptionPane.showMessageDialog(null,"Opcao invalida");
-                }
+            else if(menu =="SAIR"){
+                continua = false;
+            }else {
+            continua = false; // O usuário clicou em cancelar
         }
-       
+            }
+        
     }
+       
+}
 
     
-       public static void statusDasClasses(MAGO perso){
-        ((sorcere) perso).StatusBaseMago();
-            JOptionPane.showMessageDialog(null, "STATUS BASE DA CLASSE - MAGO\n\n"
-                    + "Descrição: \n"+perso.descricao+"\n\n "
-                    + "Vida: \n" +perso.vida+"\n"
-                    + "Dano Fisico: \n"+perso.danoF+"\n"
-                    + "Dano Magico: \n"+perso.danoM+"\n"
-                    + "Resistencia Fisica: \n"+perso.resistenciaF+"\n"
-                    + "Resistencia Magica: \n"+perso.resistenciaM+"\n"
-                    + "Poder geral(base): \n"+((sorcere)perso).getPoder());
+                                ////OK////
+       public static void statusDasALLClasses(personagem personHUMANO,personagem personElfo,personagem personOrc,
+               personagem personHUMANO2,personagem persoElfo2,personagem personOrc2){
+        ((sorcere) personHUMANO).StatusBaseMago();
+        ((spelholer) personElfo).StatusBaseMago();
+        ((overlord) personOrc).StatusBaseMago();
+        // fighter abaixo..... magos acima
+        ((Titan)personOrc2).StatusBaseFighter();
+        ((sargittarius)personHUMANO2).StatusBaseFighter();
+        ((Duelist)persoElfo2).StatusBaseFighter();
+
+         
+          boolean continua=true;
+          while (continua){
+             String[] opcoes = {"HUMANO(mago) - SORCERE" ,"DARK ELFO(Mago) - SPELHOOLER","ORC(Mago) - OVERLORD","HUMANO (fighter) - SAGITTARIUs",
+           "ORC(Fighter) - TITAN",  "DARK ELFO(Fighter) - DUELISTA","\nSAIR"};
+                   int menu = JOptionPane.showOptionDialog(null, "Escolha uma raça e classe:", "Escolha de Raça e Classe",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcoes, opcoes[0]);
+              switch(menu){
+                  
+                  case 0->{
+                        JOptionPane.showMessageDialog(null, "STATUS BASE DA CLASSE - MAGO - SORCERE\n\n"
+                        + "Descrição: \n"+personHUMANO.descricao +"\n\n"
+                                + "Magia: \n"+personHUMANO.magia);
+                                
+                  }
+                  case 1->{
+                        JOptionPane.showMessageDialog(null, "STATUS BASE DA CLASSE - MAGO - SPELHOLER\n\n"
+                        + "Descrição: \n"+personElfo.descricao +"\n\n"
+                                + "Magia: \n"+ personElfo.magia);
+                      
+                  }
+                  case 2->{
+                        JOptionPane.showMessageDialog(null, "STATUS BASE DA CLASSE - MAGO - OVERLORD\n\n"
+                        + "Descrição: \n"+personOrc.descricao + "\n\n"
+                                + "Magia: \n" +personOrc.magia );
+                                       
+                  }
+                  case 3->{
+                        JOptionPane.showMessageDialog(null, "STATUS BASE DA CLASSE - FIGHTER - SARGITTARIUS\n\n"
+                        + "Descrição: \n"+personHUMANO2.descricao+ "\n\n"
+                                + "Magia: "+ personHUMANO2.magia);
+                      //humano fight
+                  }
+                  case 4->{
+                        JOptionPane.showMessageDialog(null, "STATUS BASE DA CLASSE - FIGHTER - TITAN\n\n"
+                        + "Descrição: \n"+personOrc2.descricao + "\n\n"
+                                + "Magia: "+ personOrc2.magia);
+                      //titan
+                  }
+                  case 5->{
+                        JOptionPane.showMessageDialog(null, "STATUS BASE DA CLASSE - FIGHTER - DUELISTA\n\n"
+                        + "Descrição: \n"+persoElfo2.descricao+ "\n\n"
+                                + "Magia: "+ persoElfo2.magia);
+                      //deusli
+                  }
+                  case 6->{
+                      continua = false;
+                  }
+                  default ->{
+                            JOptionPane.showMessageDialog(null, "Opção inválida. Tente novamente."
+                                    + "", "AVISO",JOptionPane.ERROR_MESSAGE);
+
+                      
+                  }
+                
+                   
+              }
+              
+          }
+  
            
-       }
+       } 
 
-
+       
+       //// OK
      public static void explicaoDoJogo (){
-         JOptionPane.showMessageDialog(null, "OLÁ CAMPEÃO\n"
-                            + "\nRPG é um jogo de mundo aberto onde você batalha para conquistar itens e drops\n"
-                            + "mas calma, aqui voce apenas irá escolher seu personagem e batalhar\n"
-                            + "O jogo funciona da seguinte forma");
-                    JOptionPane.showMessageDialog(null, " Voce ira escolher com qual classe deseja jogar\n"
-                            + "é bem simples e intuitivo.");
-                    JOptionPane.showMessageDialog(null, "CLASSES :\n"
-                            + "MAGO: Ataques magicos de longa distancia e possui venenos para diminuir o dano do inimigo\n"
-                            + "dependentes de mana e distancia para conseguir ter vantagens sobre o inimigo\n"
-                            + "A escolha do mago é perfeita para quem gosta de pensar em quais skills deseja usar no inimigo\n\n"
-                            + "FIGHTER: Ataques de corpo a corpo, apenas o arqueiro depende da distancia\n"
-                            + "Perfeito para quem gosta de movimentar o personagem na luta\n"
-                            + "Contra magos podem se encontrarem em desvantagens dependendo da distancia(exceto o arqueiro)\n"
-                            + "Ou seja, escolha bem suas lutas.\n\n"
-                            );
-                    JOptionPane.showMessageDialog(null, "RAÇAS\n\n"
-                            + "Dentro do nosso mundo existem 3 raças com suas classes predefinidas anteriormente\n\n"
-                            + "TODAS ESSAS 3 RAÇAS POSSUI AS DUAS CLASSES - MAGO E FIGHTER\n\n"
-                            + "HUMANO's\n\n"
-                            + "ORC's\n\n"
-                            + "DARK's ELFO's");
+         JOptionPane.showMessageDialog(null, "OLÁ CAMPEÃO - SEJA BEM-VINDO\n"); // CRIAR UMA EXPLICAÇÃO MELHOR
+         JOptionPane.showMessageDialog(null, "Neste mundo existem 3 raças\n"
+                 + "Todas possuiem duas classe (MAGO e FIGHTER)"); 
+         JOptionPane.showMessageDialog(null,"Parece confuso? vamos explicar melhor");
+                 JOptionPane.showMessageDialog(null,"Funciona da seguinte maneira\n"
+                + "MAGO>HUMANO = Sorcere\n"
+                + "MAGO>DARK ELFO = SpelHoler\n"
+                + "MAGO>ORC = Overlord\n\n"
+                + "FIGHTER>HUMANO= Sargittarius\n"
+                + "FIGHTER>DARK ELFO = Duelist\n"
+                + "FIGHTER>ORC = Titan\n");
+         ExplicaRaca();
+     }
+     
+     
+     // passando com
+     public static void CadastraPersonagemMAGO(personagem personHUM, personagem personORC,personagem personElfo,
+             ArrayList<personagem> listaPersonagem){
+         // cria magos automaticos 
+        
+         
+        String nome = JOptionPane.showInputDialog("Nome do personagem\n");
+        
+        int raca = Integer.parseInt (JOptionPane.showInputDialog("Qual a raça de mago deseja escolher?\n"
+        + "1 - humano\n"
+        + "2 - Dark Elfo\n"
+        + "3 - Orc"));  
+
+        // cadastra o sorcere.
+        if (raca == 1){
+            ((sorcere) personHUM).HUMANOsorcere(); // isso acessa os metodos especificos das classes filhas. serve para imprimir tambem.
+            ((sorcere)personHUM).setNome(nome);
+            listaPersonagem.add(personHUM);// adiciona no personagem a raça e o nome;
+            JOptionPane.showMessageDialog(null,"voce é um: SORCERE\nRaça: Humano\nClasse: Mago");
+        }
+        if(raca == 2){
+           ((spelholer)personElfo).ElfoSpelholer();
+           ((spelholer)personElfo).setNome(nome);
+           listaPersonagem.add(personElfo);
+           JOptionPane.showMessageDialog(null,"Você é um: SPELHOLER\nRaça: Dark Elfo\nClasse: Mago");
+
+        }
+        if (raca == 3){
+            ((overlord) personORC).ORCoverlord();// acessando do modo correto // o get chama a função
+            ((overlord)personORC).setNome(nome);
+            listaPersonagem.add(personORC);
+            JOptionPane.showMessageDialog(null,"Você é um: OVERLORD\nRaça: Orc\nClasse: Mago");
+        }
                     
+               
+     }
+     public static void CadastraPersonagemFighter(personagem personHUMANO2,personagem persoElfo2,personagem personOrc2,
+             ArrayList<personagem> listaPersonagem){
+                 String nome = JOptionPane.showInputDialog("Nome do personagem\n");
+
+        int raca = Integer.parseInt (JOptionPane.showInputDialog("Qual a raça de mago deseja escolher?\n"
+        + "1 - humano\n"
+        + "2 - Dark Elfo\n"
+        + "3 - Orc"));  
+
+        // cadastra o sorcere.
+        if (raca == 1){
+            ((sargittarius) personHUMANO2).HumanoSargittarius(); // isso acessa os metodos especificos das classes filhas. serve para imprimir tambem.
+            ((sargittarius)personHUMANO2).setNome(nome);
+            listaPersonagem.add(personHUMANO2);// adiciona no personagem a raça e o nome;
+            JOptionPane.showMessageDialog(null,"Você é um: SARGITTARIUS\nRaça: Humano\nClasse: Fighter");
+        }
+        if(raca == 2){
+           ((Duelist)persoElfo2).ElfoDueslit();
+           ((Duelist)persoElfo2).setNome(nome);
+           listaPersonagem.add(persoElfo2);
+           JOptionPane.showMessageDialog(null,"Você é um: DUELISTA\nRaça: Dark Elfo\nClasse: Fighter");
+
+        }
+        if (raca == 3){
+            ((Titan) personOrc2).OrcTitan();// acessando do modo correto // o get chama a função
+            ((Titan)personOrc2).setNome(nome);
+            listaPersonagem.add(personOrc2);
+            JOptionPane.showMessageDialog(null,"Você é um: TITAN\nRaça: Orc\nClasse: Fighter");
+        }
          
      }
      
-     public static void CadastraPersonagem(MAGO person){
-        ArrayList<MAGO> listaPersonagem = new ArrayList<>();
- 
-        
-                    String nome = JOptionPane.showInputDialog("Nome do personagem\n");
-                    
-                    int classe = Integer.parseInt (JOptionPane.showInputDialog("""
-                                                                               Qual a classe que deseja escolher?
-                                                                               1 - mago
-                                                                               2 - fighter"""));
-                    if (classe == 1){
-                            int raca = Integer.parseInt (JOptionPane.showInputDialog("Qual a raça de mago deseja escolher?\n"
-                            + "1 - humano\n"
-                            + "2 - Dark Elfo\n"
-                            + "3 - Orc"));  
-                       
-                            if (raca == 1){ // adiciona  a raça espe na lista
-                                ((sorcere) person).HUMANOsorcere(); // isso acessa os metodos especificos das classes filhas. serve para imprimir tambem.
-                                ((sorcere)person).setNome(nome);
-                                
-                                listaPersonagem.add(person);// adiciona no personagem a raça e o nome;// LEMBRETE COLOCAR O SEXO NAS SUBCLASSE.
-                        
-                            }
-       
-                    }
-            
-         
+     
+     public static void CriaPersonagensAUTO(personagem p1,personagem p2,personagem p3, personagem p4,personagem p5, personagem p6,
+              ArrayList<personagem> listaPersonagemAUTO){
+             ((sorcere) p1).HUMANOsorcere();
+             ((sorcere)p1).setNome("chatuba");
+             listaPersonagemAUTO.add(p1);
+             
+             ((overlord)p2).ORCoverlord();
+             ((overlord)p2).setNome("chatuba");
+             listaPersonagemAUTO.add(p2);
+
+             ((spelholer) p3).ElfoSpelholer();
+             ((spelholer)p3).setNome("chatuba");
+             listaPersonagemAUTO.add(p3);
+             
+             ((sargittarius)p4).HumanoSargittarius();
+             ((sargittarius)p4).setNome("chatuba");
+             listaPersonagemAUTO.add(p4);
+             
+             ((Duelist)p5).ElfoDueslit();
+             ((Duelist)p5).setNome("chatuba");
+             listaPersonagemAUTO.add(p5);
+             
+             ((Titan) p6).OrcTitan();
+             ((Titan)p6).setNome("chatuba");
+             listaPersonagemAUTO.add(p6);
+
+          
+//            CriaPersonagensAUTO(personHUMANO,personOrc, personElfo,personHUMANO2,persoElfo2,personOrc2,listaPersonagemAUTO);
+
      }
+     
+     public static int GeraNumeroAleatorio(){
+         Random random = new Random();
+         return random.nextInt(1)+1;
+     }
+     // passar dois personagens para batalha
+     public static void batalha(ArrayList<personagem> listaPersonagemAUTO, ArrayList<personagem> listaPersonagem){
+
+         int terreno = Integer.parseInt(JOptionPane.showInputDialog("Escolha o campo de batalha\n"
+                 + "1 - campo aberto\n"
+                 + "2 - caverna\n"
+                 + "3 - floresta"));
+         int indiceAleatorio = GeraNumeroAleatorio();
+         String[] opcoes = new String[listaPersonagem.size()];
+    
+            for (int i = 0; i < listaPersonagem.size(); i++) {
+                opcoes[i] = listaPersonagem.get(i).getNome();
+            }
+            JOptionPane.showMessageDialog(null, "Personagem Aleatorio da raça:"+indiceAleatorio);
+
+                int escolha = JOptionPane.showOptionDialog(null, "Escolha um personagem:", "Lista de Personagens", 
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcoes, opcoes[0]);
+            
+                personagem p1 = listaPersonagemAUTO.get(indiceAleatorio);
+                personagem p2 = listaPersonagem.get(escolha);
+                
+           if(terreno == 1){
+                if((p1.raca==1||p1.raca==2 ||p1.raca==3 ||p1.raca==4) && (p2.raca==5 || p2.raca==6)){
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if((p2.raca==1||p2.raca==2 ||p2.raca==3 ||p2.raca==4) && (p1.raca==5 || p1.raca==6)){
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();            
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if((p1.raca==4)&&(p2.raca==1||p2.raca ==2||p2.raca ==3||p2.raca ==5||p2.raca ==6)){
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if((p2.raca==4)&&(p1.raca==1||p1.raca ==2||p1.raca ==3||p1.raca ==5||p1.raca ==6)){
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if(p1.raca == 6 && p2.raca == 5){
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if(p2.raca == 6 && p1.raca == 5){
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p1.raca == 4 && (p2.raca >= 1 && p2.raca <= 3)) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p2.raca == 4 && (p1.raca >= 1 && p1.raca <= 3)) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p1.raca == 6 && (p2.raca >= 1 && p2.raca <= 4)) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p2.raca == 6 && (p1.raca >= 1 && p1.raca <= 4)) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p1.raca == 5 && p2.raca == 2) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p2.raca == 5 && p1.raca == 2) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p1.raca == 5 && p2.raca == 1) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p2.raca == 5 && p1.raca == 1) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p1.raca == 3 && p2.raca == 2) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p2.raca == 3 && p1.raca == 2) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p1.raca == 3 && p2.raca == 1) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p2.raca == 3 && p1.raca == 1) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p1.raca == 2 && p2.raca == 1) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p2.raca == 2 && p1.raca == 1) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                }
+            }
+
+            if (terreno == 2) { // Caverna
+                if (p1.raca == 6 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 4 || p2.raca == 5)) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p1.raca == 3 && p2.raca == 1) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p1.raca == 1 && p2.raca == 2) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p1.raca == 2 && p2.raca == 1) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p1.raca == 5 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3)) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p1.raca == 4 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 5 || p2.raca == 6)) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p2.raca == 6 && (p1.raca == 1 || p1.raca == 2 || p1.raca == 3 || p1.raca == 4 || p1.raca == 5)) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 3 && p1.raca == 1) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 1 && p1.raca == 2) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 2 && p1.raca == 1) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 5 && (p1.raca == 1 || p1.raca == 2 || p1.raca == 3)) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 4 && (p1.raca == 1 || p1.raca == 2 || p1.raca == 3 || p1.raca == 5 || p1.raca == 6)) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                }
+            }
+            if (terreno == 3) { // Floresta
+                if (p1.raca == 2 && p2.raca == 1) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p1.raca == 6 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 4)) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p1.raca == 1 && p2.raca == 2) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p1.raca == 3 && p2.raca == 1) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p1.raca == 5 && (p2.raca == 1 || p2.raca == 2)) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p1.raca == 4 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 5 || p2.raca == 6)) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+                } else if (p2.raca == 2 && p1.raca == 1) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 6 && (p1.raca == 1 || p1.raca == 2 || p1.raca == 3 || p1.raca == 4)) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 1 && p1.raca == 2) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 3 && p1.raca == 1) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 5 && (p1.raca == 1 || p1.raca == 2)) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+
+                } else if (p2.raca == 4 && (p1.raca == 1 || p1.raca == 2 || p1.raca == 3 || p1.raca == 5 || p1.raca == 6)) {
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+
+                }
+}
+
+    }
 ////////////////////////////////////////////////////////////////////////////////
                             // metodos especificios acima//
      ///////////////////////////////////////////////////////////////////////////
@@ -195,8 +571,9 @@ public static void imprimirPersonagem(ArrayList<MAGO> listaPersonagem) {
     public static void main(String[] args) {
         
                
-        ArrayList<MAGO> listaPersonagem = new ArrayList<>();
-        
+        ArrayList<personagem> listaPersonagem = new ArrayList<>();
+        ArrayList<personagem> listaPersonagemAUTO = new ArrayList<>();
+    
         
         
         
@@ -206,50 +583,61 @@ public static void imprimirPersonagem(ArrayList<MAGO> listaPersonagem) {
         while (opcao){
             /// instanciei as classes de mago com valores genericos para serem alterados na propria classe filha
             // gerando um polimorfismo(mandando os valores alterados para a classe mae )
-            MAGO personElfo = new spelholer(0,0.0,0,0,"",0,0,0,0,"","");
-            MAGO personHUMANO = new sorcere(0,0.0,0,0,"",0,0,0,0,"","");
-            MAGO personOrc = new overlord(0,0.0,0,0,"",0,0,0,0,"","");
+            personagem personElfo = new spelholer(0,78,0,0,""
+                    ,0,0,0,0,"","",0,0);
+            personagem personHUMANO = new sorcere(0,77,0,0,"",0,0,0,0,"","",0,0);
+            personagem personOrc = new overlord(0,69,0,0,"",0,0,0,0,"","",0,0);
+            personagem personHUMANO2 = new sargittarius(0,79,0,0,"",0,0,0,0,"","",0,0);
+            personagem persoElfo2 = new Duelist(0,80,0,0,"",0,0,0,0,"","",0,0);
+            personagem personOrc2 = new Titan(0,95,0,0,"",0,0,0,0,"","",0,0);
             
-            
-            // precisa criar o dos fighter. tempo estimado 2h.
-            
-            // configurando os status base dos magos
-            ((sorcere) personHUMANO).StatusBaseMago();
-            ((spelholer)personElfo).StatusBaseMago();
-            ((overlord)personOrc).StatusBaseMago();
+
+            // cria personagens automaticos
+             
+
+            CriaPersonagensAUTO(personHUMANO,personOrc, personElfo,personHUMANO2,persoElfo2,personOrc2,listaPersonagemAUTO);
+
 
             int menu = Integer.parseInt(JOptionPane.showInputDialog(
                     "BEM-VINDO AO RPG\n"
-                    +"1 - COMO FUNCIONA O RPG\n" // explicar melhor o jogo
-                    +"2 - VER LORE DOS PERSONAGENS\n"
-                    +"3 - JOGAR - CADASTRAR PERSONAGEM\n"
-                    +"4 - imprimir seus personagens\n"
-                    +"5 - ver status de batalha\n"
+                    +"1 - Como funciona?\n" // explicar melhor o jogo
+                    +"2 - JOGAR - CADASTRAR PERSONAGEM\n"
+                    +"3 - Ver - > Status de batalha - Nivel de poder\n"
+                   + "4 - BATALHAR\n"
+                   + "5 - excluir um personagem\n"
+                   + "6 - Descrição das classes/\n"
                     +"0 - Para encerrar o programa\n"));
             switch (menu){
-                case 1 ->{
-                          //criei funçoes statics para facilitar a visualização do codigo
+                case 1 -> {
+
+                          explicaoDoJogo();
                           
-                          explicaoDoJogo(); // melhorar a explicacao
-                          statusDasClasses(personHUMANO);
-                          
-                          // adicionar o status das outras classes
-                          // é mais viavel criar uma função para cada person?( de cada classe(raça))? analisar
+                        
                 }
-                case 2 ->{
-                         //analisar para verificar se esta tudo ok.
-                         ExplicaRaca(); // explicar as raças nada mais é doq falar da lore deles,(historia)
+                case 4->{
+                    //batalhar.. escolher terreno
+                    batalha(listaPersonagemAUTO,listaPersonagem);
                 }
-                case 3 -> {
+
+                case 2 -> {
                     // criar cadastramento individual?// talvez seja a melhor opcao
-                    CadastraPersonagem(personHUMANO);
+                    int classe = Integer.parseInt(JOptionPane.showInputDialog("Qual classe gostaria de jogar?\n1 - MAGO\n2 - Fighter"));
+                    if (classe == 1){
+                            CadastraPersonagemMAGO(personHUMANO,personOrc, personElfo,listaPersonagem);
+                    }else if (classe ==2){
+                        CadastraPersonagemFighter(personHUMANO2,persoElfo2,personOrc2, listaPersonagem);
+                    }
                     break;
                 }
-                case 4 ->{
-                    // parece perfeito
+                case 3 ->{
                     imprimirPersonagem(listaPersonagem);
                     break;
                 }
+                case 6->{
+                   statusDasALLClasses(personHUMANO, personElfo,personOrc,personHUMANO2,persoElfo2,personOrc2);
+
+                }
+                
                 case 0->{
                    opcao = false; // Definindo opcao como false para sair do loop
                     break;
@@ -271,5 +659,6 @@ public static void imprimirPersonagem(ArrayList<MAGO> listaPersonagem) {
 
 
 
+                        
 
 
