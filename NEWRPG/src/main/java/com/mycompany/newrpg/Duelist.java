@@ -36,7 +36,7 @@ public class Duelist extends personagem implements StatusFighter{
     }
      public int ElfoDueslit(){
 
-       
+       super.setRaca(5);
        
        super.setDanoF(getDanoF()+33);
        super.setDanoM(getDanoM()+3);
@@ -45,7 +45,7 @@ public class Duelist extends personagem implements StatusFighter{
        super.setNome(getNome());
        super.setVida(getVida()+250);
        
-       return ElfoDueslit = 6;
+       return ElfoDueslit = 5;
          
      }
    

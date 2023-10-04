@@ -21,7 +21,7 @@ public class sargittarius extends personagem implements StatusFighter{
     }
 
     public int HumanoSargittarius(){
-
+       super.setRaca(4);
        
        super.setDanoF(getDanoF()+36);
        super.setDanoM(getDanoM()+4);

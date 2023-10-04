@@ -32,17 +32,16 @@ public class Titan extends personagem implements StatusFighter{
 
     }
     public int OrcTitan(){
-        super.setRaca(3);
+        super.setRaca(6);
 
         super.setDanoF(getDanoF() + 30);
         super.setDanoM(getDanoM() +1);
         super.setResistenciaF(getResistenciaF() + 30);
         super.setResistenciaM(getResistenciaM() + 10);
         super.setVida(getVida() + 300);
-        super.setRaca(3);
         super.setNome(getNome());
 
-        return OrcTitan = 5;
+        return OrcTitan = 6;
     }
     public double getPoderTitan() {
         return poderTitan;

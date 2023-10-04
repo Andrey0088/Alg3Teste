@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 import java.util.Random;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 /**
@@ -66,7 +69,7 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
                JOptionPane.showMessageDialog(null, "Poder Duelist: "+((Duelist)personagemAtual).getPoderDuelist());
            
         }
-        int continuar = JOptionPane.showConfirmDialog(null, "Deseja continua"
+        int continuar = JOptionPane.showConfirmDialog(null, "Deseja continua "
                 + "visualizando os personagens?", "CONTINUAR", JOptionPane.YES_NO_OPTION);
         if (continuar != JOptionPane.YES_NO_OPTION){
             continua = false;
@@ -266,20 +269,20 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
             ((sorcere) personHUM).HUMANOsorcere(); // isso acessa os metodos especificos das classes filhas. serve para imprimir tambem.
             ((sorcere)personHUM).setNome(nome);
             listaPersonagem.add(personHUM);// adiciona no personagem a raça e o nome;
-            JOptionPane.showMessageDialog(null,"voce é um: SORCERE\nRaça: Humano\nClasse: Mago");
+            JOptionPane.showMessageDialog(null,"voce é um: SORCERE\nRaça: Humano\nClasse: Mago\nRaça: "+personHUM.raca);
         }
         if(raca == 2){
            ((spelholer)personElfo).ElfoSpelholer();
            ((spelholer)personElfo).setNome(nome);
            listaPersonagem.add(personElfo);
-           JOptionPane.showMessageDialog(null,"Você é um: SPELHOLER\nRaça: Dark Elfo\nClasse: Mago");
+           JOptionPane.showMessageDialog(null,"Você é um: SPELHOLER\nRaça: Dark Elfo\nClasse: Mago\nRaça: "+personElfo.raca);
 
         }
         if (raca == 3){
             ((overlord) personORC).ORCoverlord();// acessando do modo correto // o get chama a função
             ((overlord)personORC).setNome(nome);
             listaPersonagem.add(personORC);
-            JOptionPane.showMessageDialog(null,"Você é um: OVERLORD\nRaça: Orc\nClasse: Mago");
+            JOptionPane.showMessageDialog(null,"Você é um: OVERLORD\nRaça: Orc\nClasse: Mago\nRaça: "+personORC.raca);
         }
                     
                
@@ -298,20 +301,20 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
             ((sargittarius) personHUMANO2).HumanoSargittarius(); // isso acessa os metodos especificos das classes filhas. serve para imprimir tambem.
             ((sargittarius)personHUMANO2).setNome(nome);
             listaPersonagem.add(personHUMANO2);// adiciona no personagem a raça e o nome;
-            JOptionPane.showMessageDialog(null,"Você é um: SARGITTARIUS\nRaça: Humano\nClasse: Fighter");
+            JOptionPane.showMessageDialog(null,"Você é um: SARGITTARIUS\nRaça: Humano\nClasse: Fighter\nRaça: "+personHUMANO2.raca);
         }
         if(raca == 2){
            ((Duelist)persoElfo2).ElfoDueslit();
            ((Duelist)persoElfo2).setNome(nome);
            listaPersonagem.add(persoElfo2);
-           JOptionPane.showMessageDialog(null,"Você é um: DUELISTA\nRaça: Dark Elfo\nClasse: Fighter");
+           JOptionPane.showMessageDialog(null,"Você é um: DUELISTA\nRaça: Dark Elfo\nClasse: Fighter\nRaça: "+persoElfo2.raca);
 
         }
         if (raca == 3){
             ((Titan) personOrc2).OrcTitan();// acessando do modo correto // o get chama a função
             ((Titan)personOrc2).setNome(nome);
             listaPersonagem.add(personOrc2);
-            JOptionPane.showMessageDialog(null,"Você é um: TITAN\nRaça: Orc\nClasse: Fighter");
+            JOptionPane.showMessageDialog(null,"Você é um: TITAN\nRaça: Orc\nClasse: Fighter\nRaça: "+personOrc2.raca);
         }
          
      }
@@ -319,28 +322,29 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
      
      public static void CriaPersonagensAUTO(personagem p1,personagem p2,personagem p3, personagem p4,personagem p5, personagem p6,
               ArrayList<personagem> listaPersonagemAUTO){
+              String nome = "chatuba";
              ((sorcere) p1).HUMANOsorcere();
-             ((sorcere)p1).setNome("chatuba");
+             ((sorcere)p1).setNome(nome);
              listaPersonagemAUTO.add(p1);
              
              ((overlord)p2).ORCoverlord();
-             ((overlord)p2).setNome("chatuba");
+             ((overlord)p2).setNome(nome);
              listaPersonagemAUTO.add(p2);
 
              ((spelholer) p3).ElfoSpelholer();
-             ((spelholer)p3).setNome("chatuba");
+             ((spelholer)p3).setNome(nome);
              listaPersonagemAUTO.add(p3);
              
              ((sargittarius)p4).HumanoSargittarius();
-             ((sargittarius)p4).setNome("chatuba");
+             ((sargittarius)p4).setNome(nome);
              listaPersonagemAUTO.add(p4);
              
              ((Duelist)p5).ElfoDueslit();
-             ((Duelist)p5).setNome("chatuba");
+             ((Duelist)p5).setNome(nome);
              listaPersonagemAUTO.add(p5);
              
              ((Titan) p6).OrcTitan();
-             ((Titan)p6).setNome("chatuba");
+             ((Titan)p6).setNome(nome);
              listaPersonagemAUTO.add(p6);
 
           
@@ -348,9 +352,10 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
 
      }
      
+     
      public static int GeraNumeroAleatorio(){
          Random random = new Random();
-         return random.nextInt(1)+1;
+         return random.nextInt(1,6);
      }
      // passar dois personagens para batalha
      public static void batalha(ArrayList<personagem> listaPersonagemAUTO, ArrayList<personagem> listaPersonagem){
@@ -365,120 +370,89 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
             for (int i = 0; i < listaPersonagem.size(); i++) {
                 opcoes[i] = listaPersonagem.get(i).getNome();
             }
-            JOptionPane.showMessageDialog(null, "Personagem Aleatorio da raça:"+indiceAleatorio);
 
                 int escolha = JOptionPane.showOptionDialog(null, "Escolha um personagem:", "Lista de Personagens", 
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcoes, opcoes[0]);
             
                 personagem p1 = listaPersonagemAUTO.get(indiceAleatorio);
                 personagem p2 = listaPersonagem.get(escolha);
-                
+                JOptionPane.showMessageDialog(null,"Raça aleatorio "+p1.raca);
+                JOptionPane.showMessageDialog(null,"Raça usuario "+p2.raca);
+
            if(terreno == 1){
-                if((p1.raca==1||p1.raca==2 ||p1.raca==3 ||p1.raca==4) && (p2.raca==5 || p2.raca==6)){
+               if (p1.raca == 1&&(p2.raca==2 || p2.raca ==3|| p2.raca ==5|| p2.raca ==6)){
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");                   
+               }else if(p1.raca == 2 &&(p2.raca == 3||p2.raca==5||p2.raca==6)){
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if((p2.raca==1||p2.raca==2 ||p2.raca==3 ||p2.raca==4) && (p1.raca==5 || p1.raca==6)){
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();            
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if((p1.raca==4)&&(p2.raca==1||p2.raca ==2||p2.raca ==3||p2.raca ==5||p2.raca ==6)){
-                    p1.incrementarVitoria();
-                    p2.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if((p2.raca==4)&&(p1.raca==1||p1.raca ==2||p1.raca ==3||p1.raca ==5||p1.raca ==6)){
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if(p1.raca == 6 && p2.raca == 5){
-                    p1.incrementarVitoria();
-                    p2.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if(p2.raca == 6 && p1.raca == 5){
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p1.raca == 4 && (p2.raca >= 1 && p2.raca <= 3)) {
-                    p1.incrementarVitoria();
-                    p2.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p2.raca == 4 && (p1.raca >= 1 && p1.raca <= 3)) {
+               }else if(p1.raca==3 &&(p2.raca==5||p2.raca==6)){
+                   p1.incrementarVitoria();
+                   p2.incrementarDerrota();
+                   JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+               }else if (p1.raca==4&&(p2.raca==1||p2.raca==2||p2.raca==3||p2.raca==5||p2.raca==6)){
+                   p1.incrementarVitoria();
+                   p2.incrementarDerrota();
+                   JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");                   
+               }else if(p1.raca==5&&p2.raca==6){
+                   p1.incrementarVitoria();
+                   p2.incrementarDerrota();
+                   JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
+               }else if(p2.raca == 1&&(p1.raca==2 || p1.raca ==3|| p1.raca ==5|| p1.raca ==6)){
+                   p2.incrementarVitoria();
+                   p1.incrementarDerrota();
+                   JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");                   
+               }else if(p2.raca == 2 &&(p1.raca == 3||p1.raca==5||p1.raca==6)){
                     p2.incrementarVitoria();
                     p1.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p1.raca == 6 && (p2.raca >= 1 && p2.raca <= 4)) {
-                    p1.incrementarVitoria();
-                    p2.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p2.raca == 6 && (p1.raca >= 1 && p1.raca <= 4)) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p1.raca == 5 && p2.raca == 2) {
-                    p1.incrementarVitoria();
-                    p2.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p2.raca == 5 && p1.raca == 2) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p1.raca == 5 && p2.raca == 1) {
-                    p1.incrementarVitoria();
-                    p2.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p2.raca == 5 && p1.raca == 1) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p1.raca == 3 && p2.raca == 2) {
-                    p1.incrementarVitoria();
-                    p2.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p2.raca == 3 && p1.raca == 2) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p1.raca == 3 && p2.raca == 1) {
-                    p1.incrementarVitoria();
-                    p2.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p2.raca == 3 && p1.raca == 1) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p1.raca == 2 && p2.raca == 1) {
-                    p1.incrementarVitoria();
-                    p2.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p2.raca == 2 && p1.raca == 1) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                }
+               }else if(p2.raca==3 &&(p1.raca==5||p1.raca==6)){
+                   p2.incrementarVitoria();
+                   p1.incrementarDerrota();
+                   JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+               }else if (p2.raca==4&&(p1.raca==1||p1.raca==2||p1.raca==3||p1.raca==5||p1.raca==6)){
+                   p2.incrementarVitoria();
+                   p1.incrementarDerrota();
+                   JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");                   
+               }else if(p2.raca==5&&p1.raca==6){
+                   p2.incrementarVitoria();
+                   p1.incrementarDerrota();
+                   JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+               }else if(p2.raca == p1.raca || p1.raca== p2.raca){
+                   JOptionPane.showMessageDialog(null,"AAaa, empate");
+               }else{
+                   JOptionPane.showMessageDialog(null,"Opa, sem confronto.. eles são iguais");
+               }
+                
             }
 
             if (terreno == 2) { // Caverna
-                if (p1.raca == 6 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 4 || p2.raca == 5)) {
+                if (p1.raca == p2.raca){
+                     JOptionPane.showMessageDialog(null,"EMPATE");
+                }
+                else if (p1.raca == 1 &&(p2.raca == 2 || p2.raca==4)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 3 && p2.raca == 1) {
+                } else if (p1.raca == 2 && p2.raca == 4) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 1 && p2.raca == 2) {
+                } else if (p1.raca == 3 && (p2.raca == 2|| p2.raca==4|| p2.raca==1)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 2 && p2.raca == 1) {
+                } else if (p1.raca == 1|| p1.raca==2|| p1.raca==3 || p1.raca==5|| p1.raca==6 && (p1.raca==4)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 5 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3)) {
+                } else if (p1.raca == 5 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3|| p2.raca ==4)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 4 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 5 || p2.raca == 6)) {
+                } else if (p1.raca == 6 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 4 || p2.raca == 5)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
@@ -486,83 +460,110 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
                     p2.incrementarVitoria();
                     p1.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p2.raca == 3 && p1.raca == 1) {
+                } else if (p2.raca == 1 &&(p1.raca == 2 || p1.raca==4)) {
                     p2.incrementarVitoria();
                     p1.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p2.raca == 1 && p1.raca == 2) {
+                   
+                } else if (p2.raca == 2 && p1.raca == 4)  {
                     p2.incrementarVitoria();
                     p1.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p2.raca == 2 && p1.raca == 1) {
+                } else if (p2.raca == 3 && (p1.raca == 1||p1.raca==2||p1.raca==4)) {
                     p2.incrementarVitoria();
                     p1.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p2.raca == 5 && (p1.raca == 1 || p1.raca == 2 || p1.raca == 3)) {
+                } else if (p2.raca == 1 || p1.raca ==2 || p1.raca == 3 || p1.raca == 5||p1.raca==6 && (p1.raca ==4)) {
                     p2.incrementarVitoria();
                     p1.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p2.raca == 4 && (p1.raca == 1 || p1.raca == 2 || p1.raca == 3 || p1.raca == 5 || p1.raca == 6)) {
+                } else if (p2.raca == 4 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 5 || p1.raca == 6)) {
                     p2.incrementarVitoria();
                     p1.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                }else if (p2.raca==5 &&(p2.raca==1 || p2.raca==2 || p2.raca==3 ||p2.raca == 4)){
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null,"Nao houve batalha");
                 }
+                    
+                
             }
             if (terreno == 3) { // Floresta
-                if (p1.raca == 2 && p2.raca == 1) {
+                if (p1.raca == 1 && (p2.raca == 3 || p2.raca == 6)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 6 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 4)) {
+                } else if (p1.raca == 2 && (p2.raca == 1 || p2.raca == 3|| p2.raca == 4|| p2.raca == 5|| p2.raca == 6)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 1 && p2.raca == 2) {
+                } else if (p1.raca == 3 && (p2.raca == 4|| p2.raca == 6)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 3 && p2.raca == 1) {
+                } else if (p1.raca == 4 && (p2.raca == 1|| p2.raca == 6)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 5 && (p2.raca == 1 || p2.raca == 2)) {
+                } else if (p1.raca == 5 && (p2.raca == 3 || p2.raca == 3 || p2.raca == 4 || p2.raca == 1|| p2.raca == 6)) {
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");    
+                }else if (p1.raca ==1|| p1.raca == 2|| p1.raca == 3|| p1.raca == 4|| p1.raca == 5&&( p2.raca == 6)){
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 4 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 5 || p2.raca == 6)) {
-                    p1.incrementarVitoria();
-                    p2.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p2.raca == 2 && p1.raca == 1) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p2.raca == 6 && (p1.raca == 1 || p1.raca == 2 || p1.raca == 3 || p1.raca == 4)) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p2.raca == 1 && p1.raca == 2) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p2.raca == 3 && p1.raca == 1) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p2.raca == 5 && (p1.raca == 1 || p1.raca == 2)) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-
-                } else if (p2.raca == 4 && (p1.raca == 1 || p1.raca == 2 || p1.raca == 3 || p1.raca == 5 || p1.raca == 6)) {
-                    p2.incrementarVitoria();
-                    p1.incrementarDerrota();
-                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-
                 }
-}
+                else if (p2.raca == 1 && (p1.raca == 3 || p1.raca == 6)){
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 2 && (p1.raca == 1 || p1.raca == 3|| p1.raca == 4|| p1.raca == 5|| p1.raca == 6)){
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 3 && (p1.raca == 4|| p1.raca == 6)){
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 4 && (p1.raca == 1|| p1.raca == 6)){
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
+                } else if (p2.raca == 5 && (p1.raca == 3 || p1.raca == 3 || p1.raca == 4 || p1.raca == 1|| p1.raca == 6)){
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
 
+                }else if (p2.raca ==1|| p2.raca == 2|| p2.raca == 3|| p2.raca == 4|| p2.raca == 5&&( p1.raca == 6)){
+                    JOptionPane.showMessageDialog(null, "Ops, eles decidiram não se enfrentar");
+                }
+            }
+
+ }
+     
+     
+     public static void excluiPersonagem( ArrayList<personagem> listaPersonagem){
+        String[] opcoes = new String[listaPersonagem.size()];
+
+        for (int i = 0; i < listaPersonagem.size(); i++) {
+        opcoes[i] = listaPersonagem.get(i).getNome();
     }
+        
+
+    int escolha = JOptionPane.showOptionDialog(null, "Escolha um personagem:", "Lista de Personagens", 
+            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcoes, opcoes[0]);
+    
+         listaPersonagem.remove(escolha);
+         //colocar no arquivo
+          
+
+     }
+         
 ////////////////////////////////////////////////////////////////////////////////
                             // metodos especificios acima//
      ///////////////////////////////////////////////////////////////////////////
@@ -584,12 +585,12 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
             /// instanciei as classes de mago com valores genericos para serem alterados na propria classe filha
             // gerando um polimorfismo(mandando os valores alterados para a classe mae )
             personagem personElfo = new spelholer(0,78,0,0,""
-                    ,0,0,0,0,"","",0,0);
-            personagem personHUMANO = new sorcere(0,77,0,0,"",0,0,0,0,"","",0,0);
-            personagem personOrc = new overlord(0,69,0,0,"",0,0,0,0,"","",0,0);
-            personagem personHUMANO2 = new sargittarius(0,79,0,0,"",0,0,0,0,"","",0,0);
-            personagem persoElfo2 = new Duelist(0,80,0,0,"",0,0,0,0,"","",0,0);
-            personagem personOrc2 = new Titan(0,95,0,0,"",0,0,0,0,"","",0,0);
+                    ,0,0,0,2,"","",0,0);
+            personagem personHUMANO = new sorcere(0,77,0,0,"",0,0,0,1,"","",0,0);
+            personagem personOrc = new overlord(0,69,0,0,"",0,0,0,3,"","",0,0);
+            personagem personHUMANO2 = new sargittarius(0,79,0,0,"",0,0,0,4,"","",0,0);
+            personagem persoElfo2 = new Duelist(0,80,0,0,"",0,0,0,5,"","",0,0);
+            personagem personOrc2 = new Titan(0,95,0,0,"",0,0,0,6,"","",0,0);
             
 
             // cria personagens automaticos
@@ -632,6 +633,9 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
                 case 3 ->{
                     imprimirPersonagem(listaPersonagem);
                     break;
+                }
+                case 5 ->{
+                    excluiPersonagem(listaPersonagem);
                 }
                 case 6->{
                    statusDasALLClasses(personHUMANO, personElfo,personOrc,personHUMANO2,persoElfo2,personOrc2);
