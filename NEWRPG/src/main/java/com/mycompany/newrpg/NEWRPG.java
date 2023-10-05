@@ -2,12 +2,12 @@ package com.mycompany.newrpg;
 
 
 
-
-import java.nio.file.Files;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import javax.swing.*;
 import javax.swing.JOptionPane;
 import java.util.Random;
 import java.io.BufferedWriter;
@@ -49,7 +49,9 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
                                                 + "Resistencia Magica: "+ personagemAtual.getResistenciaM()+"\n"
                                                         + "Vida: " + personagemAtual.getVida()+"\n"
                                                                 + "Numero vitoria: " + personagemAtual.getVitoria()+"\n"
-                                                                        + "Numero de derrotas: "+personagemAtual.getDerrota());
+                                                                        + "Numero de derrotas: "+personagemAtual.getDerrota()+"\n"
+                                                                                );
+        personagemAtual.nivel();
         if(personagemAtual instanceof sorcere){
             JOptionPane.showMessageDialog(null, "Poder Sorcere: "+((sorcere)personagemAtual).getPoderSorce()+"\n");
             
@@ -270,12 +272,16 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
             ((sorcere)personHUM).setNome(nome);
             listaPersonagem.add(personHUM);// adiciona no personagem a raça e o nome;
             JOptionPane.showMessageDialog(null,"voce é um: SORCERE\nRaça: Humano\nClasse: Mago\nRaça: "+personHUM.raca);
+            personHUM.nivel();
+            geraArquivo(listaPersonagem);
         }
         if(raca == 2){
            ((spelholer)personElfo).ElfoSpelholer();
            ((spelholer)personElfo).setNome(nome);
            listaPersonagem.add(personElfo);
            JOptionPane.showMessageDialog(null,"Você é um: SPELHOLER\nRaça: Dark Elfo\nClasse: Mago\nRaça: "+personElfo.raca);
+           personElfo.nivel();
+           geraArquivo(listaPersonagem);
 
         }
         if (raca == 3){
@@ -283,6 +289,8 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
             ((overlord)personORC).setNome(nome);
             listaPersonagem.add(personORC);
             JOptionPane.showMessageDialog(null,"Você é um: OVERLORD\nRaça: Orc\nClasse: Mago\nRaça: "+personORC.raca);
+            personORC.nivel();
+            geraArquivo(listaPersonagem);
         }
                     
                
@@ -302,12 +310,16 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
             ((sargittarius)personHUMANO2).setNome(nome);
             listaPersonagem.add(personHUMANO2);// adiciona no personagem a raça e o nome;
             JOptionPane.showMessageDialog(null,"Você é um: SARGITTARIUS\nRaça: Humano\nClasse: Fighter\nRaça: "+personHUMANO2.raca);
+            personHUMANO2.nivel();
+            geraArquivo(listaPersonagem);
         }
         if(raca == 2){
            ((Duelist)persoElfo2).ElfoDueslit();
            ((Duelist)persoElfo2).setNome(nome);
            listaPersonagem.add(persoElfo2);
            JOptionPane.showMessageDialog(null,"Você é um: DUELISTA\nRaça: Dark Elfo\nClasse: Fighter\nRaça: "+persoElfo2.raca);
+           persoElfo2.nivel();
+           geraArquivo(listaPersonagem);
 
         }
         if (raca == 3){
@@ -315,6 +327,8 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
             ((Titan)personOrc2).setNome(nome);
             listaPersonagem.add(personOrc2);
             JOptionPane.showMessageDialog(null,"Você é um: TITAN\nRaça: Orc\nClasse: Fighter\nRaça: "+personOrc2.raca);
+            personOrc2.nivel();
+            geraArquivo(listaPersonagem);
         }
          
      }
@@ -352,7 +366,6 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
 
      }
      
-     
      public static int GeraNumeroAleatorio(){
          Random random = new Random();
          return random.nextInt(1,6);
@@ -376,10 +389,11 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
             
                 personagem p1 = listaPersonagemAUTO.get(indiceAleatorio);
                 personagem p2 = listaPersonagem.get(escolha);
-                JOptionPane.showMessageDialog(null,"Raça aleatorio "+p1.raca);
-                JOptionPane.showMessageDialog(null,"Raça usuario "+p2.raca);
 
            if(terreno == 1){
+              JOptionPane.showMessageDialog(null,"Personagem: "+p1.getNome()+" raça: "+p1.raca+"\nX\nPersonagem: "+p2.getNome()+" raça: "+p2.raca+"\n"
+                      + "Batalham: Campo Aberto de Sirius Valem");
+
                if (p1.raca == 1&&(p2.raca==2 || p2.raca ==3|| p2.raca ==5|| p2.raca ==6)){
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
@@ -423,12 +437,14 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
                }else if(p2.raca == p1.raca || p1.raca== p2.raca){
                    JOptionPane.showMessageDialog(null,"AAaa, empate");
                }else{
-                   JOptionPane.showMessageDialog(null,"Opa, sem confronto.. eles são iguais");
+                   JOptionPane.showMessageDialog(null,"Opa, sem confronto..");
                }
                 
             }
 
             if (terreno == 2) { // Caverna
+              JOptionPane.showMessageDialog(null,"Personagem: "+p1.getNome()+" raça: "+p1.raca+"\nX\nPersonagem: "+p2.getNome()+" raça: "+p2.raca+"\n"
+                      + "Batalham: Nas cavernas do dragão Valakas");
                 if (p1.raca == p2.raca){
                      JOptionPane.showMessageDialog(null,"EMPATE");
                 }
@@ -440,7 +456,7 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 3 && (p2.raca == 2|| p2.raca==4|| p2.raca==1)) {
+                } else if (p1.raca == 3 && (p2.raca == 2|| p2.raca== 4|| p2.raca== 1)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
@@ -452,7 +468,17 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
-                } else if (p1.raca == 6 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 4 || p2.raca == 5)) {
+                   
+                }else if (p1.raca ==6 && p2.raca == 3){
+                    p1.incrementarVitoria();
+                    p2.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");  
+                }else if (p2.raca ==6 && p1.raca == 3){
+                    p2.incrementarVitoria();
+                    p1.incrementarDerrota();
+                    JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");  
+                }
+                else if (p1.raca == 6 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 4 || p2.raca == 5)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p1.getNome() + " Ganhou!");
@@ -473,15 +499,15 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
                     p2.incrementarVitoria();
                     p1.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p2.raca == 1 || p1.raca ==2 || p1.raca == 3 || p1.raca == 5||p1.raca==6 && (p1.raca ==4)) {
+                } else if (p2.raca == 1 || p2.raca ==2 || p2.raca == 3 || p2.raca == 5||p2.raca==6 && (p1.raca ==4)) {
                     p2.incrementarVitoria();
                     p1.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                } else if (p2.raca == 4 && (p2.raca == 1 || p2.raca == 2 || p2.raca == 3 || p2.raca == 5 || p1.raca == 6)) {
+                } else if (p2.raca == 4 && (p1.raca == 1 || p1.raca == 2 || p1.raca == 3 || p1.raca == 5)) {
                     p2.incrementarVitoria();
                     p1.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
-                }else if (p2.raca==5 &&(p2.raca==1 || p2.raca==2 || p2.raca==3 ||p2.raca == 4)){
+                }else if (p2.raca==5 &&(p1.raca==1 || p1.raca==2 || p1.raca==3 ||p1.raca == 4)){
                     p2.incrementarVitoria();
                     p1.incrementarDerrota();
                     JOptionPane.showMessageDialog(null, "O personagem " + p2.getNome() + " Ganhou!");
@@ -493,6 +519,8 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
                 
             }
             if (terreno == 3) { // Floresta
+              JOptionPane.showMessageDialog(null,"Personagem: "+p1.getNome()+" raça: "+p1.raca+"\nX\nPersonagem: "+p2.getNome()+" raça: "+p2.raca+"\n"
+                      + "Batalham: Na Floresta Negra de Varkas Silence");
                 if (p1.raca == 1 && (p2.raca == 3 || p2.raca == 6)) {
                     p1.incrementarVitoria();
                     p2.incrementarDerrota();
@@ -543,10 +571,38 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
                     JOptionPane.showMessageDialog(null, "Ops, eles decidiram não se enfrentar");
                 }
             }
-
+        geraArquivo(listaPersonagem);
  }
      
      
+     public static void geraArquivo(ArrayList<personagem> listaPersonagem){
+         Path arquivo = Paths.get("C:/Users/alanb/OneDrive/Área de Trabalho/UFMT/SEMESTRE 3/alg3/listapersonagem.txt");
+         try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo.toString()));
+
+            // Escreva os dados no arquivo aqui
+        for (personagem p : listaPersonagem) {
+            // Escreve os dados do personagem no arquivo
+            writer.newLine();
+            writer.write(p.toString());
+            writer.newLine();
+
+        }
+      
+
+            // ... continue escrevendo os dados
+
+            writer.close(); // Não esqueça de fechar o BufferedWriter
+         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+     }
+
+     
+  
+
+
      public static void excluiPersonagem( ArrayList<personagem> listaPersonagem){
         String[] opcoes = new String[listaPersonagem.size()];
 
@@ -560,7 +616,8 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
     
          listaPersonagem.remove(escolha);
          //colocar no arquivo
-          
+         geraArquivo(listaPersonagem);
+ 
 
      }
          
@@ -569,12 +626,13 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
      ///////////////////////////////////////////////////////////////////////////
                            // main do programa abaixo//
      //////////////////////////////////////////////////////////////////////////
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
                
         ArrayList<personagem> listaPersonagem = new ArrayList<>();
         ArrayList<personagem> listaPersonagemAUTO = new ArrayList<>();
-    
+ 
+        
         
         
         
@@ -597,7 +655,6 @@ public static void imprimirPersonagem(ArrayList<personagem> listaPersonagem) {
              
 
             CriaPersonagensAUTO(personHUMANO,personOrc, personElfo,personHUMANO2,persoElfo2,personOrc2,listaPersonagemAUTO);
-
 
             int menu = Integer.parseInt(JOptionPane.showInputDialog(
                     "BEM-VINDO AO RPG\n"

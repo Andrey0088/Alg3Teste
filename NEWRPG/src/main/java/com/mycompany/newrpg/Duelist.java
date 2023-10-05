@@ -1,5 +1,7 @@
 package com.mycompany.newrpg;
 
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -48,7 +50,17 @@ public class Duelist extends personagem implements StatusFighter{
        return ElfoDueslit = 5;
          
      }
-   
+       @Override
+     public String toString() {
+        return super.toString() + "\n" +
+           "Dark Elfo - Duelist N: " + getNome() + "\n" +
+           "Poder - Duelist: " + poderDuelist;
+    }
+     
+    @Override
+     public void nivel(){
+        JOptionPane.showMessageDialog(null, "Nivel: 77");
+    } 
     public double getPoderDuelist() {
         return poderDuelist;
     }
@@ -67,15 +79,7 @@ public class Duelist extends personagem implements StatusFighter{
         this.danoF = danoF;
     }
 
-    @Override
-    public String getNome() {
-        return nome;
-    }
 
-    @Override
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     @Override
     public String getDescricao() {

@@ -1,5 +1,7 @@
 package com.mycompany.newrpg;
 
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -31,8 +33,18 @@ public class sargittarius extends personagem implements StatusFighter{
        super.setVida(getVida()+150);
        this.poderSargittarius = getDanoF() * getResistenciaM();
        return HumanoSargittarius = 4;
+       
     }
-    
+        @Override
+     public String toString() {
+        return super.toString() +
+           "Humano - Sargittarius N: " + getNome() + "\n" +
+           "Poder - Sargittarius: " + poderSargittarius;
+    }
+    @Override
+     public void nivel(){
+        JOptionPane.showMessageDialog(null, "Nivel: 77");
+    } 
     
     @Override
     public void StatusBaseFighter(){
@@ -63,22 +75,16 @@ public class sargittarius extends personagem implements StatusFighter{
     public void setDanoF(int danoF) {
         this.danoF = danoF;
     }
+    @Override
     public int getVitoria() {
         return vitoria;
     }
 
+    @Override
     public int getDerrota() {
         return derrota;
     }
-    @Override
-    public String getNome() {
-        return nome;
-    }
 
-    @Override
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
     
     
 }

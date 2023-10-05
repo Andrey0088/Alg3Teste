@@ -9,10 +9,10 @@ package com.mycompany.newrpg;
  *
  * @author alanb
  */
-public class personagem {
+public abstract class personagem {
     public int vida; // vida e cp
     public int danoF; // dano fisico e chance de critico
-    public String nome; //nome do personagem
+    private String nome; //nome do personagem
     public int resistenciaF; // resistencia a fisica
     public int resistenciaM; // resistencia a magias
     public int danoM; // dano magico
@@ -50,7 +50,18 @@ public class personagem {
     public void setDerrota(int derrota) {
         this.derrota = derrota;
     }
-    
+    @Override
+    public String toString() {
+    return "Nome: " + nome + "\n"
+         + "Vida: " + vida + "\n"
+         + "Dano Físico: " + danoF + "\n"
+         + "Dano Mágico: " + danoM + "\n"
+         + "Resistência Física: " + resistenciaF + "\n"
+         + "Resistência Mágica: " + resistenciaM + "\n"
+         + "Vitórias: " + vitoria + "\n"
+         + "Derrotas: " + derrota +"\n";
+    }
+
    public void incrementarVitoria() {
         vitoria++;
     }
@@ -58,7 +69,7 @@ public class personagem {
     public void incrementarDerrota() {
         derrota++;
     }
-    
+    public abstract void nivel();
     
     public int getVida() {
         return vida;

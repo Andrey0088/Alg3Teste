@@ -4,6 +4,8 @@
  */
 package com.mycompany.newrpg;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alanb
@@ -55,25 +57,34 @@ public class spelholer extends personagem implements StatusMago {
     public void setpoderSpel(double poderSpel) {
         this.poderSpel = poderSpel;
     }
-
+    
+    /**
+     *
+     * @return
+     */
     @Override
-    public String getNome() {
-        return nome;
+     public String toString() {
+        return super.toString() +
+           "Elfo - Spelholer: " + getNome() + "\n" +
+           "PoderSpel: " + poderSpel;
     }
-
     @Override
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+     public void nivel(){
+        JOptionPane.showMessageDialog(null, "Nivel: 74");
+    } 
+
+
 
     @Override
     public int getDanoM() {
         return danoM;
     }
+    @Override
     public int getVitoria() {
         return vitoria;
     }
 
+    @Override
     public int getDerrota() {
         return derrota;
     }

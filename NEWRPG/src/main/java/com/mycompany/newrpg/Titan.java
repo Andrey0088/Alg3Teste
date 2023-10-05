@@ -1,5 +1,7 @@
 package com.mycompany.newrpg;
 
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -43,6 +45,18 @@ public class Titan extends personagem implements StatusFighter{
 
         return OrcTitan = 6;
     }
+    
+    @Override
+    public void nivel(){
+        JOptionPane.showMessageDialog(null, "Nivel: 78");
+    } 
+    
+           @Override
+     public String toString() {
+        return super.toString() + 
+           "Orc - Titan: " + getNome() + "\n" +
+           "Poder - Titan: " + poderTitan;
+    }
     public double getPoderTitan() {
         return poderTitan;
     }
@@ -67,15 +81,7 @@ public class Titan extends personagem implements StatusFighter{
         this.danoF = danoF;
     }
 
-    @Override
-    public String getNome() {
-        return nome;
-    }
 
-    @Override
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
     
     
 }

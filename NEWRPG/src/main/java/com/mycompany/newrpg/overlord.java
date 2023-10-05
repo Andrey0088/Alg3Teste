@@ -4,6 +4,8 @@
  */
 package com.mycompany.newrpg;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alanb
@@ -34,7 +36,16 @@ public class overlord extends personagem implements StatusMago{
                         + "Steal Essence transfere a vida do inimigo pra voce\n"
                         + "Perfeito para batalhas longas.\n");
         }
-
+    @Override
+     public String toString() {
+        return super.toString()  +
+           "Orc - Overlord N: " + getNome() + "\n" +
+           "Poder - Overlord: " + poderOver;
+    }
+    @Override
+     public void nivel(){
+        JOptionPane.showMessageDialog(null, "Nivel: 79");
+    } 
     public int ORCoverlord() {
                 super.setRaca(3);
                 super.setDescricao(    "Overlord possuem alta resistencia(Fisica e magica)\n" +
@@ -54,21 +65,13 @@ public class overlord extends personagem implements StatusMago{
                super.setResistenciaM(getResistenciaM()+35);
                super.setNome(getNome());
                super.setVida(getVida()+350);
-
-               return ORCoverlord = 3;  
+               return ORCoverlord = 3;
+                 
     }
 
 
 
-    @Override
-    public String getNome() {
-        return nome;
-    }
 
-    @Override
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public double getpoderOver() {
         return poderOver;
@@ -77,10 +80,17 @@ public class overlord extends personagem implements StatusMago{
     public void setpoderOver(double poderOver) {
         this.poderOver = poderOver;
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public int getVitoria() {
         return vitoria;
     }
 
+    @Override
     public int getDerrota() {
         return derrota;
     }

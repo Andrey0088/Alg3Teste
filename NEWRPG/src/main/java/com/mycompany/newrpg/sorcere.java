@@ -1,5 +1,7 @@
 package com.mycompany.newrpg;
 
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -38,7 +40,16 @@ public class sorcere extends personagem implements StatusMago{
 
 
 
-  
+      @Override
+     public String toString() {
+        return super.toString() +
+           "Humano - Sorcere: " + getNome() + "\n" +
+           "Poder - Sorcere: " + poderSorce;
+    }
+    @Override
+     public void nivel(){
+        JOptionPane.showMessageDialog(null, "Nivel: 76");
+    } 
         public int HUMANOsorcere(){
         super.setRaca(1);
 
@@ -76,15 +87,6 @@ public class sorcere extends personagem implements StatusMago{
     @Override
     public int getDerrota() {
         return derrota;
-    }
-    @Override
-    public String getNome() {
-        return nome;
-    }
-
-    @Override
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public double getPoderSorce() {
